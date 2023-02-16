@@ -22,6 +22,7 @@ add_library( # Sets the name of the library.设置生成so库的名字
 
         # Provides a relative path to your source file(s).
 #        native-lib.cpp
+        mp3-lame.cpp
         mp3lame/bitstream.c
         mp3lame/encoder.c
         mp3lame/gain_analysis.c
@@ -41,8 +42,7 @@ add_library( # Sets the name of the library.设置生成so库的名字
         mp3lame/util.c
         mp3lame/vbrquantize.c
         mp3lame/VbrTag.c
-        mp3lame/version.c
-        mp3-lame.cpp)
+        mp3lame/version.c)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

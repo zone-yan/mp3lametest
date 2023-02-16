@@ -9,7 +9,7 @@
 
 #include "mp3lame/lame.h"
 
-//#include "net_iaround_utils_Mp3Lame.h"
+//#include "net_iaround_utils_Mp3Lame.h"可以在这个头文件里定义一些变量和方法，但是感觉没啥必要，因为逻辑比较简单，一个类就行
 
 //#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG , "mp3-lame", __VA_ARGS__)
 

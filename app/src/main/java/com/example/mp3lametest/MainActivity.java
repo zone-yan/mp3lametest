@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.mp3lametest.databinding.ActivityMainBinding;
-
+/**这个类不重要，是建立C++项目自动生成的类，属于一个例子^-^**/
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'mp3lametest' library on application startup.

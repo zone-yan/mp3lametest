@@ -15,11 +15,13 @@
 
 extern "C" {
 lame_t lame;
+int numChannel;
 JNIEXPORT void JNICALL
 Java_net_iaround_utils_Mp3Lame_initEncoder(JNIEnv *env, jclass clazz, jint num_channels,
                                            jint sample_rate, jint bit_rate, jint mode,
                                            jint quality) {
     lame = lame_init();
+    numChannel = num_channels;
     lame_set_num_channels(lame, num_channels);
     lame_set_in_samplerate(lame, sample_rate);
     lame_set_brate(lame, bit_rate);
@@ -42,7 +44,15 @@ Java_net_iaround_utils_Mp3Lame_encodeBuffer(JNIEnv *env, jclass clazz, jbyteArra
                                             jint len_input, jbyteArray output, jint len_output) {
     short* pcm = (short *)(*env).GetByteArrayElements(input,NULL);
     unsigned char *result = (unsigned char *) (*env).GetByteArrayElements(output, NULL);
-    int buffer = lame_encode_buffer(lame,pcm,NULL,len_input/2,result, len_output);
+    int buffer;
+    //num_samples这个参数是每个通道的采样点数量，根据实例化AudioRecord的参数audioFormat以及初始化的声道数量来决定的
+    //例如当AudioFormat为16bit的时候，单通道输入, 一个采样点大小为2byte, 则nsamples = input有效数据长度(byte) / 2，即len_input/2
+    //AudioFormat为16bit，双通道输入的时候 input有效数据长度(byte) / 2(16bite为2byte) / 2(通道数为2)，即即len_input/2/2 = len_input/4
+    if (numChannel > 1){
+        buffer = lame_encode_buffer_interleaved(lame,pcm,len_input/4,result, len_output);
+    } else {
+        buffer = lame_encode_buffer(lame,pcm,NULL,len_input/2,result, len_output);
+    }
 //    LOGD("encode");
     (*env).ReleaseByteArrayElements(input, (jbyte *) pcm, 0);
     (*env).ReleaseByteArrayElements(output, (jbyte *) result, 0);

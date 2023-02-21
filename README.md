@@ -7,3 +7,4 @@
 替换为 “extern float fast_log2(float x);”因为android下不支持该类型。
 
 点击小锤子Make Project后，在build/intermediates/cmake/debug/obj中可以找到对应的so库
+>该so库使用demo [mp3格式音频录制和播放](https://github.com/zone-yan/AudioRecordPlayDemo)
